@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -24,7 +24,7 @@ import { useAuth } from "./hooks/useAuth";
 import { useTranslation } from "react-i18next";
 import { isMicroApp, getUserToken } from "@dootask/tools";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Transition } from "@headlessui/react";
+import { DesktopDrawerMenu } from "./components/DesktopDrawerMenu";
 
 const App: React.FC = () => {
   const { addConversation } = useConversationStore();
@@ -219,7 +219,7 @@ function AppWithErrorHandling({
 }: AppWithErrorHandlingProps) {
   const { t } = useTranslation();
   const toast = useToast();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isDrawerMenuOpen, setIsDrawerMenuOpen] = useState(false);
 
   // 配置全局错误处理
   useEffect(() => {
@@ -287,11 +287,11 @@ function AppWithErrorHandling({
               
               {/* 导航菜单按钮 */}
               <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                onClick={() => setIsDrawerMenuOpen(!isDrawerMenuOpen)}
                 className="inline-flex items-center justify-center p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
               >
-                <span className="sr-only">{isMobileMenuOpen ? '关闭菜单' : '打开菜单'}</span>
-                {isMobileMenuOpen ? (
+                <span className="sr-only">{isDrawerMenuOpen ? '关闭菜单' : '打开菜单'}</span>
+                {isDrawerMenuOpen ? (
                   <XMarkIcon className="h-6 w-6" />
                 ) : (
                   <Bars3Icon className="h-6 w-6" />
@@ -301,100 +301,13 @@ function AppWithErrorHandling({
           </div>
         </header>
         
-        {/* 全屏导航菜单 */}
-        <Transition
-          show={isMobileMenuOpen}
-          enter="transition ease-out duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="transition ease-in duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <div className="fixed inset-0 z-50 bg-white dark:bg-gray-900">
-            {/* 菜单头部 */}
-            <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-                {t('navigation.menu')}
-              </h2>
-              <button
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
-              >
-                <XMarkIcon className="h-6 w-6" />
-              </button>
-            </div>
-            
-            {/* 菜单内容 */}
-            <div className="p-4 space-y-2">
-              {/* 聊天页面 */}
-              {(isAdmin || isAgent) && (
-                <button
-                  onClick={() => {
-                    setIsMobileMenuOpen(false);
-                    window.history.pushState({}, "", "/chat");
-                    window.dispatchEvent(new Event("popstate"));
-                  }}
-                  className="w-full flex items-center gap-4 p-4 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                >
-                  <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-                    <svg className="w-5 h-5 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <div className="flex-1 text-left">
-                    <div className="font-medium">{t("navigation.chat")}</div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400">客服聊天界面</div>
-                  </div>
-                </button>
-              )}
-              
-              {/* 客服管理 */}
-              {isAdmin && (
-                <button
-                  onClick={() => {
-                    setIsMobileMenuOpen(false);
-                    window.history.pushState({}, "", "/agents");
-                    window.dispatchEvent(new Event("popstate"));
-                  }}
-                  className="w-full flex items-center gap-4 p-4 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                >
-                  <div className="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
-                    <svg className="w-5 h-5 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
-                    </svg>
-                  </div>
-                  <div className="flex-1 text-left">
-                    <div className="font-medium">{t("navigation.agent")}</div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400">管理客服人员</div>
-                  </div>
-                </button>
-              )}
-              
-              {/* 系统配置 */}
-              {isAdmin && (
-                <button
-                  onClick={() => {
-                    setIsMobileMenuOpen(false);
-                    window.history.pushState({}, "", "/config");
-                    window.dispatchEvent(new Event("popstate"));
-                  }}
-                  className="w-full flex items-center gap-4 p-4 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                >
-                  <div className="w-10 h-10 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
-                    <svg className="w-5 h-5 text-purple-600 dark:text-purple-400" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <div className="flex-1 text-left">
-                    <div className="font-medium">{t("navigation.config")}</div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400">系统设置配置</div>
-                  </div>
-                </button>
-              )}
-            </div>
-          </div>
-         </Transition>
+        {/* 抽屉式导航菜单 */}
+        <DesktopDrawerMenu
+          isOpen={isDrawerMenuOpen}
+          onClose={() => setIsDrawerMenuOpen(false)}
+          isAdmin={isAdmin}
+          isAgent={isAgent}
+        />
 
         {/* 主内容区 */}
         <main className="flex-1 px-4 sm:px-6 py-4 sm:py-6 md:py-8 h-[calc(100vh-56px)] sm:h-[calc(100vh-64px)] overflow-auto">
