@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useTranslation } from 'react-i18next';
+import { formatTimeDisplay, getFullTimeString } from '../utils/timeFormat';
 import { chatApi } from "../api/chat";
 import type { Conversation } from "../types/chat";
 import {
@@ -40,6 +41,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
   const [conversation, setConversation] = useState<Conversation | null>(null);
   const [newMessage, setNewMessage] = useState("");
   const [sending, setSending] = useState(false);
+  const [clickedTimeIds, setClickedTimeIds] = useState<Set<number>>(new Set());
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
 
@@ -156,6 +158,18 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
       // 这里暂时保留消息，但可以根据需要调整
       setSending(false);
     }
+  };
+
+  const handleTimeClick = (messageId: number) => {
+    setClickedTimeIds(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(messageId)) {
+        newSet.delete(messageId);
+      } else {
+        newSet.add(messageId);
+      }
+      return newSet;
+    });
   };
 
   if (!conversationId) {
@@ -307,7 +321,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
                 >
                   {message.sender === "customer" && (
                     <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-gray-500 to-gray-600 rounded-full flex items-center justify-center shadow-md flex-shrink-0">
-                      <UserIcon className="w-4 h-4 sm:w-5 sm:h-5 text-black dark:text-white" />
+                      <UserIcon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                     </div>
                   )}
                   <div className="flex flex-col max-w-[280px] sm:max-w-xs lg:max-w-md">
@@ -321,18 +335,22 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
                       <p className="text-sm leading-relaxed break-words">{message.content}</p>
                     </div>
                     <p
-                      className={`text-xs mt-1 opacity-70 ${
+                      className={`text-xs mt-1 opacity-70 cursor-pointer hover:opacity-100 transition-opacity ${
                         message.sender === "agent" ? "text-right" : "text-left"
                       }`}
+                      onClick={() => handleTimeClick(message.id)}
+                      title={message.created_at ? getFullTimeString(message.created_at) : ""}
                     >
                       {message.created_at
-                        ? new Date(message.created_at).toLocaleTimeString()
+                        ? clickedTimeIds.has(message.id)
+                          ? getFullTimeString(message.created_at)
+                          : formatTimeDisplay(message.created_at, t)
                         : ""}
                     </p>
                   </div>
                   {message.sender === "agent" && (
                     <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center shadow-md flex-shrink-0">
-                      <CpuChipIcon className="w-4 h-4 sm:w-5 sm:h-5 text-black dark:text-white" />
+                      <CpuChipIcon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                     </div>
                   )}
                 </div>

@@ -21,6 +21,9 @@
     "switchToLightMode": "Switch to Light Mode",
     "switchToDarkMode": "Switch to Dark Mode"
   },
+  "time": {
+    "yesterday": "Yesterday"
+  },
   "navigation": {
     "chat": "Chat",
     "config": "Configuration",

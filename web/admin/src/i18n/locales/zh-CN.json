@@ -21,6 +21,9 @@
     "switchToLightMode": "切换到亮色模式",
     "switchToDarkMode": "切换到暗色模式"
   },
+  "time": {
+    "yesterday": "昨天"
+  },
   "navigation": {
     "chat": "聊天",
     "config": "配置",
