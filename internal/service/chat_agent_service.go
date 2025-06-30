@@ -154,6 +154,11 @@ func (s *ChatAgentService) CloseConversation(id int, agentID uint) error {
 		"agent_id": agentID, // 记录关闭对话的客服
 	})
 
+	// conversation_closed 
+	go websocket.BroadcastMessage(conversation.Uuid, map[string]interface{}{
+		"type": "conversation_closed",
+	}, websocket.MessageTypeConversationClosed)
+
 	if result.Error != nil {
 		return result.Error
 	}

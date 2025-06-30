@@ -182,12 +182,12 @@ func (h ChatPublicHeadler) GetConversation(c *gin.Context) {
 	if err != nil {
 		// 检查是否为i18n错误
 		if i18nErr, ok := err.(*i18n.ErrorInfo); ok {
-			response.BadRequestWithCode(c, i18nErr.Code)
+			response.ErrorWithCode(c, i18nErr.Code)
 			return
 		}
 		// 检查是否是业务错误
 		if bizErr, ok := bizErrors.IsBusinessError(err); ok {
-			response.BadRequest(c, bizErr.Message, bizErr)
+			response.ErrorWithCode(c, i18n.ErrorCode(bizErr.Code), bizErr)
 			return
 		}
 		response.ServerError(c, "", err)

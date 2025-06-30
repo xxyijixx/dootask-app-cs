@@ -56,6 +56,8 @@ const (
 	MessageTypeNewConversation MessageType = "new_conversation"
 	// MessageTypeNewMessage 新消息通知
 	MessageTypeNewMessage MessageType = "new_message"
+	// MessageTypeConversationClosed 会话关闭通知
+	MessageTypeConversationClosed MessageType = "conversation_closed"
 )
 
 // NewManager 创建一个新的WebSocket管理器

@@ -191,7 +191,11 @@ func (s *ChatPublicService) GetConversation(uuid string) (*models.Conversations,
 	var conversation models.Conversations
 	result := database.DB.Where("uuid = ?", uuid).First(&conversation)
 	if result.Error != nil {
-		return nil, bizErrors.ErrConversationNotFound
+		// return nil, bizErrors.ErrConversationNotFound
+		return nil, &i18n.ErrorInfo{
+			Code:    i18n.ErrCodeConversationNotFound,
+			Message: "Token is required", // 这里可以是任意消息，实际显示会根据客户端语言决定
+		}
 	}
 
 	return &conversation, nil
