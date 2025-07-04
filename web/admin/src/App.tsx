@@ -255,9 +255,12 @@ function AppWithErrorHandling({
   }, [toast]);
 
   // NavLink component removed as it's not being used
+  const basename = import.meta.env.VITE_BASE_PATH || '/apps/cs/';
 
+  // 移除末尾的斜杠，因为basename不应该以斜杠结尾
+  const routerBasename = basename.replace(/\/$/, '');
   return (
-    <Router>
+    <Router basename={routerBasename}>
       <div className="h-full flex flex-col">
         {/* 应用头部 - 适配移动端和桌面端 */}
         <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">

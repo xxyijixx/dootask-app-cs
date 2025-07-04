@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react';
 import { XMarkIcon, ChatBubbleLeftRightIcon, UserGroupIcon, Cog6ToothIcon, ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { isElectron, isMainElectron, popoutWindow } from '@dootask/tools';
 
 interface DesktopDrawerMenuProps {
@@ -18,6 +19,7 @@ export const DesktopDrawerMenu: React.FC<DesktopDrawerMenuProps> = ({
   isAgent,
 }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(false);
 
   // 检测屏幕尺寸
@@ -34,8 +36,7 @@ export const DesktopDrawerMenu: React.FC<DesktopDrawerMenuProps> = ({
 
   const handleNavigation = (path: string) => {
     onClose();
-    window.history.pushState({}, "", path);
-    window.dispatchEvent(new Event("popstate"));
+    navigate(path);
   };
 
   const handleOpenNewWindow = () => {
