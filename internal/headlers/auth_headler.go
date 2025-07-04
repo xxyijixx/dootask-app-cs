@@ -5,11 +5,11 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"support-plugin/internal/i18n"
-	"support-plugin/internal/middleware"
-	"support-plugin/internal/models"
-	"support-plugin/internal/pkg/database"
-	"support-plugin/internal/pkg/response"
+	"chatdesk/internal/i18n"
+	"chatdesk/internal/middleware"
+	"chatdesk/internal/models"
+	"chatdesk/internal/pkg/database"
+	"chatdesk/internal/pkg/response"
 )
 
 type AuthHeadler struct{}

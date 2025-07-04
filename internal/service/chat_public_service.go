@@ -7,15 +7,15 @@ import (
 	"github.com/google/uuid"
 	"go.uber.org/zap"
 
-	"support-plugin/internal/config"
-	"support-plugin/internal/i18n"
-	"support-plugin/internal/models"
-	"support-plugin/internal/pkg/database"
-	"support-plugin/internal/pkg/dootask"
-	bizErrors "support-plugin/internal/pkg/errors"
-	"support-plugin/internal/pkg/eventbus"
-	"support-plugin/internal/pkg/logger"
-	"support-plugin/internal/pkg/websocket"
+	"chatdesk/internal/config"
+	"chatdesk/internal/i18n"
+	"chatdesk/internal/models"
+	"chatdesk/internal/pkg/database"
+	"chatdesk/internal/pkg/dootask"
+	bizErrors "chatdesk/internal/pkg/errors"
+	"chatdesk/internal/pkg/eventbus"
+	"chatdesk/internal/pkg/logger"
+	"chatdesk/internal/pkg/websocket"
 )
 
 type ChatPublicService struct{}

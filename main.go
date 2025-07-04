@@ -7,14 +7,14 @@ import (
 	"strconv"
 	"syscall"
 
-	"support-plugin/internal/config"
-	"support-plugin/internal/middleware"
-	"support-plugin/internal/pkg/database"
-	"support-plugin/internal/pkg/eventbus"
-	"support-plugin/internal/pkg/initialize"
-	"support-plugin/internal/pkg/logger"
-	"support-plugin/internal/pkg/websocket"
-	"support-plugin/internal/routes"
+	"chatdesk/internal/config"
+	"chatdesk/internal/middleware"
+	"chatdesk/internal/pkg/database"
+	"chatdesk/internal/pkg/eventbus"
+	"chatdesk/internal/pkg/initialize"
+	"chatdesk/internal/pkg/logger"
+	"chatdesk/internal/pkg/websocket"
+	"chatdesk/internal/routes"
 
 	"github.com/gin-gonic/gin"
 )

@@ -1,21 +1,22 @@
 package initialize
 
 import (
+	"chatdesk/internal/models"
+	"chatdesk/internal/pkg/database"
+	"chatdesk/internal/utils/common"
 	"encoding/json"
 	"log"
-	"support-plugin/internal/models"
-	"support-plugin/internal/pkg/database"
-	"support-plugin/internal/utils/common"
+
 	"gorm.io/gorm"
 )
 
 // InitDefaultConfig 初始化默认配置
 func InitDefaultConfig() {
 	db := database.GetDB()
-	
+
 	// 初始化DooTaskChat配置
 	initDooTaskChatConfig(db)
-	
+
 	// 初始化系统配置
 	initSystemConfig(db)
 }
@@ -29,7 +30,7 @@ func initDooTaskChatConfig(db *gorm.DB) {
 		log.Println("DooTaskChat配置已存在")
 		return
 	}
-	
+
 	chatKey := common.RandString(32)
 	chatConfig := models.DooTaskChat{
 		ChatKey: chatKey,
@@ -39,7 +40,7 @@ func initDooTaskChatConfig(db *gorm.DB) {
 		log.Printf("序列化DooTaskChat配置失败: %v", err)
 		return
 	}
-	
+
 	defaultConfig := models.CSConfig{
 		ConfigKey:  models.CSConfigKeyDooTaskChat,
 		ConfigJSON: string(jsonBytes),
@@ -61,7 +62,7 @@ func initSystemConfig(db *gorm.DB) {
 		log.Println("系统配置已存在")
 		return
 	}
-	
+
 	// 创建默认系统配置
 	defaultSystemConfig := models.CustomerServiceConfigData{
 		ServiceName:    "客服中心",
@@ -99,18 +100,18 @@ func initSystemConfig(db *gorm.DB) {
 		Reserved1: "",
 		Reserved2: "",
 	}
-	
+
 	jsonBytes, err := json.Marshal(defaultSystemConfig)
 	if err != nil {
 		log.Printf("序列化系统配置失败: %v", err)
 		return
 	}
-	
+
 	systemConfig := models.CSConfig{
 		ConfigKey:  models.CSConfigKeySystem,
 		ConfigJSON: string(jsonBytes),
 	}
-	
+
 	result := db.Create(&systemConfig)
 	if result.Error != nil {
 		log.Printf("创建系统配置失败: %v", result.Error)

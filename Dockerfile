@@ -18,7 +18,7 @@ FROM node:20-alpine AS admin-builder
 WORKDIR /app/web/admin
 
 # 设置构建时环境变量
-ENV VITE_BASE_PATH=/apps/cs
+ENV VITE_BASE_PATH=/apps/chatdesk
 
 # 复制 admin package.json 和相关文件
 COPY web/admin/package*.json ./
@@ -69,7 +69,7 @@ RUN echo 'Asia/Shanghai' > /etc/timezone
 WORKDIR /root/
 
 # 从构建阶段复制二进制文件
-COPY --from=go-builder /app/bin/support-plugin .
+COPY --from=go-builder /app/bin/chatdesk .
 
 # 复制配置文件
 COPY --from=go-builder /app/config.yaml .
@@ -81,4 +81,4 @@ RUN mkdir -p logs
 EXPOSE 8888
 
 # 运行应用
-CMD ["./support-plugin"]
+CMD ["./chatdesk"]

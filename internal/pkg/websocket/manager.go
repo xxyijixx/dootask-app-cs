@@ -1,8 +1,8 @@
 package websocket
 
 import (
+	"chatdesk/internal/pkg/logger"
 	"encoding/json"
-	"support-plugin/internal/pkg/logger"
 	"sync"
 
 	"github.com/gorilla/websocket"

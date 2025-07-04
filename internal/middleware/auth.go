@@ -7,11 +7,11 @@ import (
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 
-	"support-plugin/internal/config"
-	"support-plugin/internal/i18n"
-	"support-plugin/internal/pkg/dootask"
-	"support-plugin/internal/pkg/logger"
-	"support-plugin/internal/pkg/response"
+	"chatdesk/internal/config"
+	"chatdesk/internal/i18n"
+	"chatdesk/internal/pkg/dootask"
+	"chatdesk/internal/pkg/logger"
+	"chatdesk/internal/pkg/response"
 )
 
 // AgentAuthMiddleware 客服认证中间件
@@ -73,10 +73,10 @@ func AdminAuthMiddleware() gin.HandlerFunc {
 		if config.Cfg.App.Mode == "dootask" {
 			isAdmin := c.GetBool("is_admin")
 			if !isAdmin {
-			response.ForbiddenWithCode(c, i18n.ErrCodePermissionDenied)
-			c.Abort()
-			return
-		}
+				response.ForbiddenWithCode(c, i18n.ErrCodePermissionDenied)
+				c.Abort()
+				return
+			}
 		}
 
 		// 将客服信息存储到上下文中

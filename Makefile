@@ -1,5 +1,5 @@
 # Go 应用程序名称
-APP_NAME := support-plugin
+APP_NAME := chatdesk
 
 # Go 源文件目录
 SRC_DIR := .

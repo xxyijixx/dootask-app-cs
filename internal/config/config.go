@@ -4,7 +4,7 @@ type AppConfig struct {
 	Name string `mapstructure:"name" default:"DefaultAppName"`
 	Port int    `mapstructure:"port" default:"8888"`
 	Mode string `mapstructure:"mode" default:"dootask"` // debug or release
-	Base string `mapstructure:"base" default:"/apps/cs"`
+	Base string `mapstructure:"base" default:"/apps/chatdesk"`
 }
 
 type DBConfig struct {

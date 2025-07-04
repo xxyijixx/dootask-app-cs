@@ -1,13 +1,13 @@
 package dootask
 
 import (
+	"chatdesk/internal/config"
+	"chatdesk/internal/i18n"
+	"chatdesk/internal/models/dto"
+	"chatdesk/internal/pkg/logger"
+	"chatdesk/internal/utils/common"
 	"encoding/json"
 	"fmt"
-	"support-plugin/internal/config"
-	"support-plugin/internal/i18n"
-	"support-plugin/internal/models/dto"
-	"support-plugin/internal/pkg/logger"
-	"support-plugin/internal/utils/common"
 	"time"
 
 	"go.uber.org/zap"

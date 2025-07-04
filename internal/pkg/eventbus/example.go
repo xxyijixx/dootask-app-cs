@@ -1,9 +1,9 @@
 package eventbus
 
 import (
+	"chatdesk/internal/i18n"
 	"context"
 	"fmt"
-	"support-plugin/internal/i18n"
 	"time"
 )
 

@@ -3,11 +3,11 @@ package headlers
 import (
 	"strconv"
 
-	"support-plugin/internal/i18n"
-	"support-plugin/internal/models"
-	bizErrors "support-plugin/internal/pkg/errors"
-	"support-plugin/internal/pkg/response"
-	"support-plugin/internal/service"
+	"chatdesk/internal/i18n"
+	"chatdesk/internal/models"
+	bizErrors "chatdesk/internal/pkg/errors"
+	"chatdesk/internal/pkg/response"
+	"chatdesk/internal/service"
 
 	"github.com/gin-gonic/gin"
 )

@@ -1,8 +1,8 @@
 package headlers
 
 import (
-	"support-plugin/internal/config"
-	"support-plugin/internal/pkg/response"
+	"chatdesk/internal/config"
+	"chatdesk/internal/pkg/response"
 
 	"github.com/gin-gonic/gin"
 )

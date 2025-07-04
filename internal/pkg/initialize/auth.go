@@ -4,8 +4,8 @@ import (
 	"log"
 	"time"
 
-	"support-plugin/internal/models"
-	"support-plugin/internal/pkg/database"
+	"chatdesk/internal/models"
+	"chatdesk/internal/pkg/database"
 )
 
 // InitDefaultAgent 初始化默认客服账号

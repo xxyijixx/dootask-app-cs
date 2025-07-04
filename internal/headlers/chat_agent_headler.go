@@ -5,12 +5,12 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"support-plugin/internal/i18n"
-	"support-plugin/internal/middleware"
-	"support-plugin/internal/models"
-	bizErrors "support-plugin/internal/pkg/errors"
-	"support-plugin/internal/pkg/response"
-	"support-plugin/internal/service"
+	"chatdesk/internal/i18n"
+	"chatdesk/internal/middleware"
+	"chatdesk/internal/models"
+	bizErrors "chatdesk/internal/pkg/errors"
+	"chatdesk/internal/pkg/response"
+	"chatdesk/internal/service"
 )
 
 type ChatAgentHeadler struct {

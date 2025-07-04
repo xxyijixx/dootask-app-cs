@@ -5,11 +5,11 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"support-plugin/internal/config"
-	"support-plugin/internal/models"
-	"support-plugin/internal/pkg/database"
-	"support-plugin/internal/pkg/response"
-	"support-plugin/internal/utils/common"
+	"chatdesk/internal/config"
+	"chatdesk/internal/models"
+	"chatdesk/internal/pkg/database"
+	"chatdesk/internal/pkg/response"
+	"chatdesk/internal/utils/common"
 )
 
 type ConfigHeadler struct{}

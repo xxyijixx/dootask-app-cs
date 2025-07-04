@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"support-plugin/internal/config"
+	"chatdesk/internal/config"
 
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"

@@ -1,15 +1,15 @@
 package routes
 
 import (
+	"chatdesk/internal/config"
+	"chatdesk/internal/headlers"
+	"chatdesk/internal/middleware"
+	"chatdesk/internal/pkg/websocket"
+	"chatdesk/internal/web"
 	"net/http"
 	"strings"
-	"support-plugin/internal/config"
-	"support-plugin/internal/headlers"
-	"support-plugin/internal/middleware"
-	"support-plugin/internal/pkg/websocket"
-	"support-plugin/internal/web"
 
-	_ "support-plugin/docs"
+	_ "chatdesk/docs"
 
 	"github.com/gin-gonic/gin"
 	swaggerfiles "github.com/swaggo/files"
@@ -134,7 +134,7 @@ func RegisterRoutes(r *gin.Engine) {
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
 	// // 静态文件服务
-	// r.StaticFS("/apps/cs", http.Dir("./web/admin/dist"))
+	// r.StaticFS("/apps/chatdesk", http.Dir("./web/admin/dist"))
 
 	// // 404处理，将所有未匹配的路由重定向到前端的index.html
 	// r.NoRoute(func(c *gin.Context) {
@@ -145,7 +145,7 @@ func RegisterRoutes(r *gin.Engine) {
 	{
 		staticGroup.GET("", func(c *gin.Context) {
 			c.Data(http.StatusOK, "text/html; charset=utf-8", web.IndexByte)
-				
+
 		})
 		staticGroup.GET("/*filepath", func(c *gin.Context) {
 			path := c.Param("filepath")

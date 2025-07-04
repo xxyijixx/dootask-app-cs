@@ -1,13 +1,13 @@
 package headlers
 
 import (
-	"support-plugin/internal/config"
-	"support-plugin/internal/models"
-	"support-plugin/internal/pkg/database"
-	"support-plugin/internal/pkg/dootask"
-	"support-plugin/internal/pkg/response"
-	"support-plugin/internal/service"
-	"support-plugin/internal/utils/common"
+	"chatdesk/internal/config"
+	"chatdesk/internal/models"
+	"chatdesk/internal/pkg/database"
+	"chatdesk/internal/pkg/dootask"
+	"chatdesk/internal/pkg/response"
+	"chatdesk/internal/service"
+	"chatdesk/internal/utils/common"
 
 	"github.com/gin-gonic/gin"
 )

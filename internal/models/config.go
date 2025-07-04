@@ -5,8 +5,9 @@ import (
 	"fmt"
 	"time"
 
+	"chatdesk/internal/i18n"
+
 	"gorm.io/gorm"
-	"support-plugin/internal/i18n"
 )
 
 const (

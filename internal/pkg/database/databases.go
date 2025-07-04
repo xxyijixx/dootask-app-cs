@@ -6,8 +6,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"support-plugin/internal/config"
-	"support-plugin/internal/models"
+	"chatdesk/internal/config"
+	"chatdesk/internal/models"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/sqlite"

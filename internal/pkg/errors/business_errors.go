@@ -1,6 +1,6 @@
 package errors
 
-import "support-plugin/internal/i18n"
+import "chatdesk/internal/i18n"
 
 // 为了向后兼容，保留原有的错误代码常量
 // 新代码建议直接使用 i18n.ErrorCode
@@ -98,7 +98,7 @@ func ConvertToI18nError(bizErr *BusinessError, lang i18n.Language) *i18n.ErrorIn
 	if bizErr == nil {
 		return nil
 	}
-	
+
 	// 尝试将旧的错误代码映射到新的错误代码
 	var errorCode i18n.ErrorCode
 	switch bizErr.Code {
@@ -118,7 +118,7 @@ func ConvertToI18nError(bizErr *BusinessError, lang i18n.Language) *i18n.ErrorIn
 		// 如果没有映射，使用通用错误
 		errorCode = i18n.ErrCodeInternalError
 	}
-	
+
 	if bizErr.Data != nil {
 		return i18n.NewErrorWithData(errorCode, lang, bizErr.Data)
 	}

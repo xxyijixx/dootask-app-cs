@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"support-plugin/internal/i18n"
+	"chatdesk/internal/i18n"
 )
 
 // UserInfoResp 返回用户信息

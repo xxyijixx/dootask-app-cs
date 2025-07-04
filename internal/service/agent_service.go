@@ -1,8 +1,8 @@
 package service
 
 import (
-	"support-plugin/internal/models"
-	"support-plugin/internal/pkg/database"
+	"chatdesk/internal/models"
+	"chatdesk/internal/pkg/database"
 )
 
 type AgentService struct{}

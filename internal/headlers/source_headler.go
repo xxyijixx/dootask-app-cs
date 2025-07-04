@@ -10,11 +10,11 @@ import (
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 
-	"support-plugin/internal/models"
-	"support-plugin/internal/pkg/database"
-	"support-plugin/internal/pkg/logger"
-	"support-plugin/internal/pkg/response"
-	"support-plugin/internal/utils/common"
+	"chatdesk/internal/models"
+	"chatdesk/internal/pkg/database"
+	"chatdesk/internal/pkg/logger"
+	"chatdesk/internal/pkg/response"
+	"chatdesk/internal/utils/common"
 )
 
 type SourceHeadler struct{}

@@ -1,11 +1,11 @@
 version: '3.8'
 
 services:
-  support-plugin:
+  chatdesk:
     build:
       context: .
       dockerfile: Dockerfile
-    # image: support-plugin:latest
+    # image: chatdesk:latest
     ports:
       - "8888:8888"
     environment:
@@ -16,8 +16,8 @@ services:
       - ./docker/logs:/root/logs
     restart: unless-stopped
     networks:
-      - support-plugin-network
+      - chatdesk-network
 
 networks:
-  support-plugin-network:
+  chatdesk-network:
     driver: bridge

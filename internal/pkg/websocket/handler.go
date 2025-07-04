@@ -1,12 +1,12 @@
 package websocket
 
 import (
+	"chatdesk/internal/pkg/dootask"
+	"chatdesk/internal/pkg/logger"
 	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
-	"support-plugin/internal/pkg/dootask"
-	"support-plugin/internal/pkg/logger"
 	"time"
 
 	"github.com/gin-gonic/gin"

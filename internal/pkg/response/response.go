@@ -1,9 +1,9 @@
 package response
 
 import (
+	"chatdesk/internal/i18n"
+	"chatdesk/internal/models"
 	"net/http"
-	"support-plugin/internal/i18n"
-	"support-plugin/internal/models"
 
 	"github.com/gin-gonic/gin"
 )
@@ -118,7 +118,7 @@ func GetLanguageFromContext(c *gin.Context) i18n.Language {
 func ErrorWithCode(c *gin.Context, code i18n.ErrorCode, args ...interface{}) {
 	lang := GetLanguageFromContext(c)
 	errorInfo := i18n.NewError(code, lang, args...)
-	
+
 	response := models.Response{
 		Code:    StatusError,
 		Message: errorInfo.Message,
@@ -132,7 +132,7 @@ func ErrorWithCode(c *gin.Context, code i18n.ErrorCode, args ...interface{}) {
 func ErrorWithCodeAndData(c *gin.Context, code i18n.ErrorCode, data interface{}, args ...interface{}) {
 	lang := GetLanguageFromContext(c)
 	errorInfo := i18n.NewErrorWithData(code, lang, data, args...)
-	
+
 	response := models.Response{
 		Code:    StatusError,
 		Message: errorInfo.Message,
@@ -147,7 +147,7 @@ func ErrorWithCodeAndData(c *gin.Context, code i18n.ErrorCode, data interface{},
 func ErrorWithCodeAndStatus(c *gin.Context, httpStatus int, code i18n.ErrorCode, args ...interface{}) {
 	lang := GetLanguageFromContext(c)
 	errorInfo := i18n.NewError(code, lang, args...)
-	
+
 	response := models.Response{
 		Code:    httpStatus,
 		Message: errorInfo.Message,
@@ -161,7 +161,7 @@ func ErrorWithCodeAndStatus(c *gin.Context, httpStatus int, code i18n.ErrorCode,
 func SuccessWithCode(c *gin.Context, data interface{}) {
 	lang := GetLanguageFromContext(c)
 	message := i18n.T(lang, string(i18n.ErrCodeSuccess))
-	
+
 	Success(c, message, data)
 }
 

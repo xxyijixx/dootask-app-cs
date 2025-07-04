@@ -1,9 +1,9 @@
 package initialize
 
 import (
+	"chatdesk/internal/i18n"
 	"log"
 	"path/filepath"
-	"support-plugin/internal/i18n"
 )
 
 // Init 执行所有初始化操作
@@ -24,10 +24,10 @@ func Init() {
 // InitI18n 初始化国际化
 func InitI18n() {
 	log.Println("初始化国际化...")
-	
+
 	// 获取翻译文件目录路径
 	translationsDir := filepath.Join("internal", "i18n")
-	
+
 	// 初始化i18n管理器
 	if err := i18n.Init(translationsDir); err != nil {
 		log.Printf("初始化i18n失败: %v", err)

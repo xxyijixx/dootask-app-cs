@@ -11,8 +11,8 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 # 项目名称
-PROJECT_NAME="support-plugin"
-IMAGE_NAME="support-plugin:latest"
+PROJECT_NAME="chatdesk"
+IMAGE_NAME="chatdesk:latest"
 
 echo -e "${GREEN}开始构建 Support Plugin Docker 镜像...${NC}"
 

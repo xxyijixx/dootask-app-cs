@@ -5,9 +5,10 @@ import (
 	"sync"
 	"time"
 
+	"chatdesk/internal/i18n"
+	"chatdesk/internal/pkg/logger"
+
 	"go.uber.org/zap"
-	"support-plugin/internal/i18n"
-	"support-plugin/internal/pkg/logger"
 )
 
 // Event 定义事件接口
@@ -103,7 +104,7 @@ func (eb *EventBus) PublishSync(event Event) error {
 
 	for _, handler := range handlers {
 		if err := handler(eb.ctx, event); err != nil {
-			logger.App.Error("事件处理失败", 
+			logger.App.Error("事件处理失败",
 				zap.String("eventType", event.GetType()),
 				zap.Error(err))
 			return err
@@ -168,7 +169,7 @@ func (eb *EventBus) processEvent(event Event, workerID int) {
 	eb.mutex.RUnlock()
 
 	if !exists {
-		logger.App.Warn("没有找到事件处理器", 
+		logger.App.Warn("没有找到事件处理器",
 			zap.String("eventType", event.GetType()),
 			zap.Int("workerID", workerID))
 		return

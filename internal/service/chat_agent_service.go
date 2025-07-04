@@ -1,13 +1,13 @@
 package service
 
 import (
+	"chatdesk/internal/config"
+	"chatdesk/internal/models"
+	"chatdesk/internal/pkg/database"
+	"chatdesk/internal/pkg/dootask"
+	bizErrors "chatdesk/internal/pkg/errors"
+	"chatdesk/internal/pkg/websocket"
 	"fmt"
-	"support-plugin/internal/config"
-	"support-plugin/internal/models"
-	"support-plugin/internal/pkg/database"
-	"support-plugin/internal/pkg/dootask"
-	bizErrors "support-plugin/internal/pkg/errors"
-	"support-plugin/internal/pkg/websocket"
 )
 
 type ChatAgentService struct{}
@@ -53,7 +53,7 @@ func (s *ChatAgentService) SendMessageByAgent(conversationID uint, content, msgT
 		"content": content,
 	}, websocket.MessageTypeNewMessage)
 
-	if conversation.DooTaskDialogID > 0 && conversation.DooTaskTaskID > 0 && metadata != "dootask"{
+	if conversation.DooTaskDialogID > 0 && conversation.DooTaskTaskID > 0 && metadata != "dootask" {
 		content := fmt.Sprintf("[从系统回复]\n%s", message.Content)
 		go func(content string, dialogId int) {
 			customerServiceConfigData, err := models.LoadConfig[models.CustomerServiceConfigData](database.DB, models.CSConfigKeySystem)
@@ -154,7 +154,7 @@ func (s *ChatAgentService) CloseConversation(id int, agentID uint) error {
 		"agent_id": agentID, // 记录关闭对话的客服
 	})
 
-	// conversation_closed 
+	// conversation_closed
 	go websocket.BroadcastMessage(conversation.Uuid, map[string]interface{}{
 		"type": "conversation_closed",
 	}, websocket.MessageTypeConversationClosed)

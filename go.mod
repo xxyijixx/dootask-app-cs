@@ -1,4 +1,4 @@
-module support-plugin
+module chatdesk
 
 go 1.24.3
 

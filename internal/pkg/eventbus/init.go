@@ -1,7 +1,8 @@
 package eventbus
 
 import (
-	"support-plugin/internal/pkg/logger"
+	"chatdesk/internal/pkg/logger"
+
 	"go.uber.org/zap"
 )
 

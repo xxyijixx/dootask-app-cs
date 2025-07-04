@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"time"
 
-	"support-plugin/internal/i18n"
-	"support-plugin/internal/models"
-	"support-plugin/internal/models/dto"
-	"support-plugin/internal/pkg/database"
-	"support-plugin/internal/pkg/dootask"
-	"support-plugin/internal/pkg/logger"
+	"chatdesk/internal/i18n"
+	"chatdesk/internal/models"
+	"chatdesk/internal/models/dto"
+	"chatdesk/internal/pkg/database"
+	"chatdesk/internal/pkg/dootask"
+	"chatdesk/internal/pkg/logger"
 
 	"go.uber.org/zap"
 )
