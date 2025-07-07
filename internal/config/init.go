@@ -27,6 +27,11 @@ func Init() {
 	viper.SetConfigType("yaml")
 	viper.AddConfigPath(".") // 或者 "./config"
 
+	// 设置环境变量前缀和自动读取环境变量
+	viper.SetEnvPrefix("CHATDESK") // 环境变量前缀，如 SUPPORT_PLUGIN_APP_NAME
+	viper.AutomaticEnv()                 // 自动读取环境变量
+	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_")) // 将配置键中的点替换为下划线
+
 	if err := viper.ReadInConfig(); err != nil {
 		log.Fatalf("读取配置失败: %v", err)
 	}
