@@ -1025,7 +1025,7 @@ async function initializeChatWidget(options) {
 document.addEventListener("DOMContentLoaded", async () => {
   // Always initialize the chat widget when DOM is ready with default values
   // initializeChatWidget({ baseUrl: 'http://192.168.31.214:8888', source: 'CS-4A6euKS8gwMUaqyOWcks' });
-  const globalConfig = window.WIDGET_CONFIG || {};
+  const globalConfig = window.CHATDESK_WIDGET_CONFIG || {};
   const autoInit = globalConfig.autoInit !== false; // 默认为true，除非明确设置为false
 
   if (autoInit) {

@@ -247,19 +247,24 @@ export const ChatConfigSection: React.FC<ChatConfigSectionProps> = ({
                 <h4 className="font-medium text-gray-800 dark:text-white mb-2">{t('config.addCodeToWebpage')}</h4>
                 <div className="bg-gray-100 dark:bg-gray-700 p-4 rounded-md">
                   <pre className="text-sm text-gray-800 dark:text-gray-200 whitespace-pre-wrap">
-{`<!-- 配置全局参数 -->
+{`<!-- ${t('config.source.global')} -->
 <script>
-    // 手动配置 baseUrl 和 source
-    window.WIDGET_CONFIG = {
-        // 后端服务地址
+    window.CHATDESK_WIDGET_CONFIG = {
+        // ${t('config.source.baseUrl')}
         baseUrl: '${serverConfig.base_url}',
         
-        // 当前来源的source key 
-        source: '${selectedSource.source_key}'
+        // ${t('config.source.sourceKey')}
+        source: '${selectedSource.source_key}',
+        
+        // ${t('config.source.language')}
+        language: 'zh',
+        
+        // ${t('config.source.theme')}
+        theme: 'minimal',
     };
 </script>
 
-<!-- 引入widget脚本 -->
+<!-- ${t('config.source.refscript')} -->
 <script src="${serverConfig.base_url}/widget/bundle.js" defer></script>
 `}
                   </pre>

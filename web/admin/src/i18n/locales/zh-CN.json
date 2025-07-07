@@ -144,7 +144,15 @@
     "saveConfig": "保存配置",
     "deleteConfirm": "删除确认",
     "confirm": "确认",
-    "cancel": "取消"
+    "cancel": "取消",
+    "source": {
+      "global": "配置全局参数",
+      "baseUrl": "后端服务地址",
+      "sourceKey": "来源Key",
+      "language": "语言设置（可选：zh、en，默认：zh）",
+      "theme": "主题样式（可选：colorful、minimal，默认： colorful）",
+      "refscript": "引用脚本"
+    }
   },
   "agent": {
     "title": "客服管理",

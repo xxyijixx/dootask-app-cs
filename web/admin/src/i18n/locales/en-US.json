@@ -144,7 +144,15 @@
     "saveConfig": "Save Configuration",
     "deleteConfirm": "Delete Confirmation",
     "confirm": "Confirm",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "source": {
+      "global": "Global Configuration",
+      "baseUrl": "Backend Service URL",
+      "sourceKey": "Source Key",
+      "language": "Language Setting (Optional: zh, en, Default: zh)",
+      "theme": "Theme Style (Optional: colorful, minimal, Default: colorful)",
+      "refscript": "Reference Script"
+    }
   },
   "agent": {
     "title": "Agent Management",
