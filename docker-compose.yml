@@ -12,12 +12,8 @@ services:
       - DOOTASK_URL="http://nginx"
       - DOOTASK_WEBHOOK=http://nginx/api/dialog/msg/sendtext
       - DOOTASK_VERSION="1.0.0"
+      - CHATDESK_DB_SQLITE_PATH=./data/chatdesk.db
     volumes:
       - ./docker/logs:/root/logs
+      - ./docker/data:/root/data
     restart: unless-stopped
-    networks:
-      - chatdesk-network
-
-networks:
-  chatdesk-network:
-    driver: bridge

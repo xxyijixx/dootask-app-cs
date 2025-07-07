@@ -3,7 +3,6 @@ package middleware
 import (
 	"bytes"
 	"io"
-	"io/ioutil"
 	"time"
 
 	"log"
@@ -34,7 +33,7 @@ func LoggerMiddleware() gin.HandlerFunc {
 		// 读取请求体
 		var requestBody string
 		if c.Request.Body != nil {
-			bodyBytes, err := ioutil.ReadAll(c.Request.Body)
+			bodyBytes, err := io.ReadAll(c.Request.Body)
 			if err == nil {
 				requestBody = string(bodyBytes)
 				// 重新赋值 c.Request.Body，供后续处理

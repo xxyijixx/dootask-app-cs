@@ -35,6 +35,7 @@ func AgentAuthMiddleware() gin.HandlerFunc {
 			if err != nil {
 				// 检查是否为i18n错误
 				if i18nErr, ok := err.(*i18n.ErrorInfo); ok {
+					logger.App.Error(string(i18nErr.Code), zap.Error(err))
 					response.UnauthorizedWithCode(c, i18nErr.Code)
 				} else {
 					response.UnauthorizedWithCode(c, i18n.ErrCodeUnauthorized)
