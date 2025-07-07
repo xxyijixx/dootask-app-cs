@@ -141,13 +141,11 @@ export default function ServiceConfig() {
                       d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                     ></path>
                   </svg>
-                  <span className="hidden sm:inline">{t('config.saving')}</span>
-                  <span className="sm:hidden">保存中</span>
+                  <span>{t('config.saving')}</span>
                 </>
               ) : (
                 <>
-                  <span className="hidden sm:inline">{t('config.saveConfig')}</span>
-                  <span className="sm:hidden">保存配置</span>
+                  <span>{t('config.saveConfig')}</span>
                 </>
               )}
             </button>

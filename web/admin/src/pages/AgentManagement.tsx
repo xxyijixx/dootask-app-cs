@@ -219,8 +219,7 @@ export default function AgentManagement() {
                 ) : (
                   <>
                     <PlusIcon className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-                    <span className="hidden sm:inline">{t('agent.selectAgents')}</span>
-                    <span className="sm:hidden">选择客服</span>
+                    <span>{t('agent.selectAgents')}</span>
                   </>
                 )}
               </button>

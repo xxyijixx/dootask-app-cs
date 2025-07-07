@@ -50,7 +50,7 @@ export const DesktopDrawerMenu: React.FC<DesktopDrawerMenuProps> = ({
     {
       id: 'chat',
       title: t("navigation.chat"),
-      description: '客服聊天界面',
+      description: t('navigation.chatDescription'),
       icon: ChatBubbleLeftRightIcon,
       path: '/chat',
       show: isAdmin || isAgent,
@@ -58,8 +58,8 @@ export const DesktopDrawerMenu: React.FC<DesktopDrawerMenuProps> = ({
     },
     {
       id: 'agents',
-      title: t("agent.management"),
-      description: '管理客服人员',
+      title: t("navigation.agent"),
+      description: t('navigation.agentDescription'),
       icon: UserGroupIcon,
       path: '/agents',
       show: isAdmin,
@@ -68,7 +68,7 @@ export const DesktopDrawerMenu: React.FC<DesktopDrawerMenuProps> = ({
     {
       id: 'config',
       title: t("navigation.config"),
-      description: '系统设置和配置',
+      description: t('navigation.configDescription'),
       icon: Cog6ToothIcon,
       path: '/config',
       show: isAdmin,
@@ -253,11 +253,11 @@ export const DesktopDrawerMenu: React.FC<DesktopDrawerMenuProps> = ({
                     </div>
 
                     {/* 抽屉底部 */}
-                    <div className="border-t border-gray-200 dark:border-gray-700 px-6 py-4">
+                    {/* <div className="border-t border-gray-200 dark:border-gray-700 px-6 py-4">
                       <div className="text-xs text-gray-500 dark:text-gray-400 text-center">
                         Doocs Support System
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </DialogPanel>
               </TransitionChild>

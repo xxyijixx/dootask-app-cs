@@ -26,8 +26,11 @@
   },
   "navigation": {
     "chat": "聊天",
+    "chatDescription": "与客户进行实时聊天",
     "config": "配置",
+    "configDescription": "配置ChatDesk",
     "agent": "客服管理",
+    "agentDescription": "管理客服账号",
     "settings": "设置",
     "menu": "菜单"
   },
@@ -70,7 +73,7 @@
     "closeConversationFailed": "关闭会话失败",
     "reopenConversationError": "重新打开会话时发生错误",
     "reopenConversationFailed": "重新打开会话失败",
-    "welcomeToCustomerService": "欢迎使用客服系统",
+    "welcomeToCustomerService": "欢迎使用ChatDesk",
     "selectConversationToStart": "请从左侧选择一个会话开始聊天",
     "statusOpen": "进行中",
     "statusClosed": "已关闭",
@@ -79,13 +82,13 @@
     "loadingMoreMessages": "加载更多消息...",
     "allMessagesShown": "已显示所有消息",
     "startConversation": "开始对话吧",
-    "inputPlaceholderWithShortcuts": "输入消息... (Enter 发送，Shift+Enter 换行)",
+    "inputPlaceholderWithShortcuts": "输入消息...",
     "sending": "发送中...",
     "send": "发送"
   },
   "config": {
-    "title": "客服系统配置",
-    "description": "配置您的客服系统设置，包括机器人集成、默认消息和界面设置。",
+    "title": "配置",
+    "description": "配置您的ChatDesk设置，包括机器人集成、默认消息和界面设置。",
     "basicConfig": "基础配置",
     "botConfig": "机器人配置",
     "uiConfig": "界面配置",

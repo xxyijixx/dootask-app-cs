@@ -269,7 +269,7 @@ function AppWithErrorHandling({
               {/* 应用标题和用户信息 */}
               <div className="flex items-center gap-3">
                 <h1 className="text-lg sm:text-xl font-bold text-gray-800 dark:text-white">
-                  Doocs
+                  ChatDesk
                 </h1>
                 {/* 用户权限标识 */}
                 {!isLoading && (
