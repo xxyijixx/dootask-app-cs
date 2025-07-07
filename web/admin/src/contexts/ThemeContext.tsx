@@ -11,13 +11,13 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // 从localStorage获取主题，如果没有则使用系统偏好
-  const getInitialTheme = (): Theme => {
+  const getInitialTheme = async(): Promise<Theme> => {
     if (typeof window !== 'undefined' && window.localStorage) {
       const storedPrefs = window.localStorage.getItem('theme');
       if (storedPrefs) {
         return storedPrefs as Theme;
       }
-      const theme = getThemeName()
+      const theme = await getThemeName();
       if (theme) {
         console.log("DooTask获取到的主题信息", theme)
         return theme as Theme;
@@ -30,8 +30,16 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
     return 'light';
   };
-
-  const [theme, setTheme] = useState<Theme>(getInitialTheme());
+  const [theme, setTheme] = useState<Theme>('light');
+  
+  // 初始化主题
+  useEffect(() => {
+    const initTheme = async () => {
+      const initialTheme = await getInitialTheme();
+      setTheme(initialTheme);
+    };
+    initTheme();
+  }, []);
 
   // 切换主题
   const toggleTheme = () => {
@@ -42,8 +50,8 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   // 监听getThemeName()的变化
   useEffect(() => {
-    const checkThemeChange = () => {
-      const currentTheme = getThemeName();
+    const checkThemeChange = async () => {
+      const currentTheme = await getThemeName();
       if (currentTheme && currentTheme !== theme) {
         console.log(`检测到DooTask主题变化: ${theme} -> ${currentTheme}`);
         setTheme(currentTheme as Theme);

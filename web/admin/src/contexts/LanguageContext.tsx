@@ -15,14 +15,14 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     const { i18n } = useTranslation();
 
     // 从@dootask/tools获取初始语言，如果没有则使用默认值
-  const getInitialLanguage = (): Language => {
+  const getInitialLanguage = async(): Promise<Language> => {
     if (typeof window !== 'undefined') {
       const storedLang = window.sessionStorage.getItem('language');
       if (storedLang) {
         return storedLang as Language;
       }
       
-      const dootaskLang = getLanguageName();
+      const dootaskLang = await getLanguageName();
       if (dootaskLang) {
         console.log('DooTask获取到的语言信息', dootaskLang);
         // 兼容DooTask返回的语言格式
@@ -48,8 +48,17 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     return 'en-US';
   };
 
-  const [language, setLanguageState] = useState<Language>(getInitialLanguage());
+  const [language, setLanguageState] = useState<Language>('en-US');
   
+
+  // 初始化主题
+  useEffect(() => {
+    const initTheme = async () => {
+      const initialLanguage= await getInitialLanguage();
+      setLanguageState(initialLanguage);
+    };
+    initTheme();
+  }, []);
   // 设置语言
   const setLanguage = (lang: Language) => {
     console.log(`切换语言从 ${language} 到 ${lang}`);
@@ -63,8 +72,8 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   // 监听getLanguage()的变化
   useEffect(() => {
-    const checkLanguageChange = () => {
-      const currentLang = getLanguageName();
+    const checkLanguageChange = async() => {
+      const currentLang = await getLanguageName();
       if (currentLang) {
         let normalizedLang: Language;
         // 兼容DooTask返回的语言格式
@@ -119,9 +128,3 @@ export const useLanguage = (): LanguageContextType => {
   }
   return context;
 };
-
-// 语言选项配置
-// export const LANGUAGE_OPTIONS = [
-//   { value: 'zh-CN', label: '中文' },
-//   { value: 'en-US', label: 'English' },
-// ] as const;
