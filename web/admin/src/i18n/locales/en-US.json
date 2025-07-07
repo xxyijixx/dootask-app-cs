@@ -105,6 +105,8 @@
     "sourcesCount": "Sources Count",
     "notSet": "Not Set",
     "noBotSelected": "No Bot Selected",
+    "noBotAvailable": "No bots available",
+    "createBotToGetStarted": "Click the create bot button to get started",
     "createBot": "Create Bot",
     "checkingBotInProject": "Checking if bot is in project...",
     "botNotInProject": "Bot {{botName}}(id:{{botId}}) is not in the current project",

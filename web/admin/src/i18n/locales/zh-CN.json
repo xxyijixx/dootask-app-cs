@@ -104,6 +104,8 @@
     "sourcesCount": "来源数量",
     "notSet": "未设置",
     "noBotSelected": "未选择机器人",
+    "noBotAvailable": "暂无可用机器人",
+    "createBotToGetStarted": "点击创建机器人按钮开始使用",
     "createBot": "创建机器人",
     "checkingBotInProject": "正在检查机器人是否在项目中...",
     "botNotInProject": "机器人 {{botName}}(id:{{botId}}) 不在当前项目中",

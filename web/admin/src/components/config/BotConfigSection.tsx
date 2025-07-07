@@ -175,29 +175,41 @@ export const BotConfigSection: React.FC<BotConfigSectionProps> = ({
                 </span>
               </ListboxButton>
               <ListboxOptions className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white dark:bg-gray-700 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                {userBots.map((bot) => (
-                  <ListboxOption
-                    key={bot.id}
-                    value={bot}
-                    className="group relative cursor-default select-none py-2 pl-10 pr-4 text-gray-900 dark:text-white data-[focus]:bg-blue-600 data-[focus]:text-white"
-                  >
-                    <div className="flex items-center">
-                      {bot.avatar && (
-                        <img
-                          src={bot.avatar}
-                          alt={bot.name}
-                          className="h-6 w-6 flex-shrink-0 rounded-full mr-2"
-                        />
-                      )}
-                      <span className="block truncate font-normal group-data-[selected]:font-semibold">
-                        {bot.name}
+                {userBots.length === 0 ? (
+                  <div className="px-4 py-8 text-center">
+                    <BoltIcon className="mx-auto h-8 w-8 text-gray-400 dark:text-gray-500 mb-3" />
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
+                      {t('config.noBotAvailable')}
+                    </p>
+                    <p className="text-xs text-gray-400 dark:text-gray-500">
+                      {t('config.createBotToGetStarted')}
+                    </p>
+                  </div>
+                ) : (
+                  userBots.map((bot) => (
+                    <ListboxOption
+                      key={bot.id}
+                      value={bot}
+                      className="group relative cursor-default select-none py-2 pl-10 pr-4 text-gray-900 dark:text-white data-[focus]:bg-blue-600 data-[focus]:text-white"
+                    >
+                      <div className="flex items-center">
+                        {bot.avatar && (
+                          <img
+                            src={bot.avatar}
+                            alt={bot.name}
+                            className="h-6 w-6 flex-shrink-0 rounded-full mr-2"
+                          />
+                        )}
+                        <span className="block truncate font-normal group-data-[selected]:font-semibold">
+                          {bot.name}
+                        </span>
+                      </div>
+                      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-blue-600 group-data-[focus]:text-white [.group:not([data-selected])_&]:hidden">
+                        <CheckIcon className="h-5 w-5" aria-hidden="true" />
                       </span>
-                    </div>
-                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-blue-600 group-data-[focus]:text-white [.group:not([data-selected])_&]:hidden">
-                      <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                    </span>
-                  </ListboxOption>
-                ))}
+                    </ListboxOption>
+                  ))
+                )}
               </ListboxOptions>
             </Listbox>
           </div>
