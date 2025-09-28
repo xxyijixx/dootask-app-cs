@@ -251,10 +251,10 @@ export const DesktopDrawerMenu: React.FC<DesktopDrawerMenuProps> = ({
                             </div>
                             <div className="flex-1 text-left">
                               <div className="font-medium text-gray-900 dark:text-white group-hover:text-gray-700 dark:group-hover:text-gray-200">
-                                新窗口打开
+                                {t('navigation.newWindowOpen')}
                               </div>
                               <div className="text-sm text-gray-500 dark:text-gray-400">
-                                在新窗口中打开系统
+                                {t('navigation.newWindowOpenDescription')}
                               </div>
                             </div>
                           </button>

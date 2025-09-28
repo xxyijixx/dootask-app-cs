@@ -32,7 +32,9 @@
     "agent": "Agent Management",
     "agentDescription": "Manage ChatDesk agents",
     "settings": "Settings",
-    "menu": "Menu"
+    "menu": "Menu",
+    "newWindowOpen": "New Window Open",
+    "newWindowOpenDescription": "Open the system in a new window"
   },
   "chat": {
     "title": "Customer Service Chat",

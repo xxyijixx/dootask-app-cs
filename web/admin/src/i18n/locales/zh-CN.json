@@ -32,7 +32,9 @@
     "agent": "客服管理",
     "agentDescription": "管理客服账号",
     "settings": "设置",
-    "menu": "菜单"
+    "menu": "菜单",
+    "newWindowOpen": "新窗口打开",
+    "newWindowOpenDescription": "在新窗口中打开系统"
   },
   "chat": {
     "title": "客服聊天",
