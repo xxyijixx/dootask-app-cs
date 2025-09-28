@@ -47,16 +47,22 @@ const App: React.FC = () => {
   useEffect(() => {
     if (!initialized.current) {
       initialized.current = true;
-      console.log("初始化WebSocket连接...");
-      // TODO: Replace 'test-agent-id' with the actual agent ID from authentication
-      webSocketService.connect(getUserToken());
-      console.log(
-        "WebSocket连接请求已发送，当前状态:",
-        webSocketService.getReadyState()
-      );
-      if (isMicroApp()) {
-        console.log("当前是微应用");
-      }
+
+      const initializeWebSocket = async () => {
+        console.log("初始化WebSocket连接...");
+        // TODO: Replace 'test-agent-id' with the actual agent ID from authentication
+        const token = await getUserToken();
+        webSocketService.connect(token);
+        console.log(
+          "WebSocket连接请求已发送，当前状态:",
+          webSocketService.getReadyState()
+        );
+        if (await isMicroApp()) {
+          console.log("当前是微应用");
+        }
+      };
+
+      initializeWebSocket();
 
       const handleOpen = () => {
         console.log("WebSocket connected in App.tsx");
@@ -177,7 +183,7 @@ const App: React.FC = () => {
         // webSocketService.close();
       };
     }
-  }, [addMessage, refreshMessages]); // 添加 messageStore 的方法作为依赖项
+  }, [addConversation, addMessage, refreshMessages, currentConversationId]); // 添加缺失的依赖项
 
   // NavLink component removed as it's not being used
 

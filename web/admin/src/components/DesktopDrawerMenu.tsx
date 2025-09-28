@@ -21,16 +21,26 @@ export const DesktopDrawerMenu: React.FC<DesktopDrawerMenuProps> = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(false);
+  const [isElectronEnv, setIsElectronEnv] = useState(false);
+  const [isMainElectronEnv, setIsMainElectronEnv] = useState(false);
 
-  // 检测屏幕尺寸
+  // 检测屏幕尺寸和环境
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768); // md breakpoint
     };
-    
+
+    const checkEnvironment = async () => {
+      const electronEnv = await isElectron();
+      const mainElectronEnv = await isMainElectron();
+      setIsElectronEnv(electronEnv);
+      setIsMainElectronEnv(mainElectronEnv);
+    };
+
     checkMobile();
+    checkEnvironment();
     window.addEventListener('resize', checkMobile);
-    
+
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
@@ -40,7 +50,7 @@ export const DesktopDrawerMenu: React.FC<DesktopDrawerMenuProps> = ({
   };
 
   const handleOpenNewWindow = () => {
-    if (isElectron() && isMainElectron()) {
+    if (isElectronEnv && isMainElectronEnv) {
       popoutWindow({});
     }
     onClose();
@@ -135,7 +145,7 @@ export const DesktopDrawerMenu: React.FC<DesktopDrawerMenuProps> = ({
               })}
             
             {/* Electron 新窗口打开选项 */}
-            {isElectron() && isMainElectron() && (
+            {isElectronEnv && isMainElectronEnv && (
               <button
                 onClick={handleOpenNewWindow}
                 className="w-full flex items-center gap-4 p-4 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
@@ -231,7 +241,7 @@ export const DesktopDrawerMenu: React.FC<DesktopDrawerMenuProps> = ({
                           })}
 
                         {/* Electron 新窗口打开选项 */}
-                        {isElectron() && isMainElectron() && (
+                        {isElectronEnv && isMainElectronEnv && (
                           <button
                             onClick={handleOpenNewWindow}
                             className="w-full flex items-center gap-4 p-4 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group"

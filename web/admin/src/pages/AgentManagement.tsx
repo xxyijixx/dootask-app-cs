@@ -8,7 +8,7 @@ import { getAgentList, setAgents, removeAgent } from "../api/auth";
 import { LoadingSpinner } from "../components/common/LoadingSpinner";
 import { MessageAlert } from "../components/common/MessageAlert";
 import { PlusIcon, UserIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { methods } from "@dootask/tools";
+import { selectUsers } from "@dootask/tools";
 
 interface Agent {
   id: number;
@@ -86,7 +86,7 @@ export default function AgentManagement() {
       setMessage(null);
 
       // 使用DooTask的用户选择器
-      const selectedUsers = await methods.selectUsers({
+      const selectedUsers = await selectUsers({
         multiple: true,
         title: t('agent.selectAgentTitle'),
         placeholder: t('agent.selectAgentPlaceholder'),

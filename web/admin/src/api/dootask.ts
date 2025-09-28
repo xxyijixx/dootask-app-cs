@@ -1,14 +1,14 @@
-import { methods } from "@dootask/tools";
+import { requestAPI } from "@dootask/tools";
 import type {
   requestParams,
-  responseSuccess,
-  responseError,
+  ApiSuccess,
+  ApiErrorData,
 } from "@dootask/tools";
 import type { UserBot } from "../types/dootask";
 
-export type APIResponse = responseSuccess | responseError;
+export type APIResponse = ApiSuccess | ApiErrorData;
 
-export interface ListResponse<T> extends responseSuccess {
+export interface ListResponse<T> extends ApiSuccess {
   data: {
     list: T[];
   };
@@ -19,8 +19,8 @@ export interface ListResponse<T> extends responseSuccess {
  */
 export async function dooTaskAPI(
   options: requestParams
-): Promise<responseSuccess> {
-  const response: APIResponse = await methods.requestAPI(options);
+): Promise<ApiSuccess> {
+  const response: APIResponse = await requestAPI(options);
   if ("ret" in response) {
     // 这里可以抛出错误，或者返回一个统一的错误对象
     throw new Error(response.msg || "请求失败");
@@ -33,7 +33,7 @@ export async function createBot(data: {
   id: number;
   avatar: string[];
   name: string;
-}): Promise<responseSuccess> {
+}): Promise<ApiSuccess> {
   return dooTaskAPI({
     url: "/api/users/bot/edit",
     method: "POST",
@@ -60,7 +60,7 @@ export async function updateBot(userBot: UserBot): Promise<ListResponse<UserBot>
 export async function createProject(data: {
   name: string;
   flow: boolean;
-}): Promise<responseSuccess> {
+}): Promise<ApiSuccess> {
   const queryString = `name=${encodeURIComponent(data.name)}&flow=${data.flow}`;
   return dooTaskAPI({
     url: `/api/project/add?${queryString}`,
@@ -142,7 +142,7 @@ export async function createTask(data: {
   name: string;
   content: string;
   project_id: number;
-}): Promise<responseSuccess> {
+}): Promise<ApiSuccess> {
   return dooTaskAPI({
     url: "/api/project/task/add",
     method: "POST",
@@ -202,7 +202,7 @@ export async function createTask(data: {
 //       }
 //   }
 // }
-export async function getTaskDialog(task_id: number): Promise<responseSuccess> {
+export async function getTaskDialog(task_id: number): Promise<ApiSuccess> {
   return dooTaskAPI({
     url: `/api/project/task/dialog?task_id=${task_id}`,
     method: "GET",
@@ -249,7 +249,7 @@ export async function sendMessage(data: {
   text: string;
   text_type?: string;
   silence?: string;
-}): Promise<responseSuccess> {
+}): Promise<ApiSuccess> {
   const messageData = {
     ...data,
     reply_id: data.reply_id || 0,
@@ -265,7 +265,7 @@ export async function sendMessage(data: {
 }
 
 // 开启用户会话
-export async function openUserDialog(user_id: number): Promise<responseSuccess> {
+export async function openUserDialog(user_id: number): Promise<ApiSuccess> {
   return dooTaskAPI({
     url: `/api/dialog/open/user?userid=${user_id}`,
     method: "GET",
@@ -273,7 +273,7 @@ export async function openUserDialog(user_id: number): Promise<responseSuccess> 
 }
 
 // 获取用户会话列表
-export async function getUserDialogList(dialog_id: number): Promise<responseSuccess> {
+export async function getUserDialogList(dialog_id: number): Promise<ApiSuccess> {
   return dooTaskAPI({
     url: `/api/dialog/msg/list?dialog_id=${dialog_id}&msg_id=0`,
     method: "GET",
@@ -321,14 +321,14 @@ export async function getUserDialogList(dialog_id: number): Promise<responseSucc
 //       ]
 //   }
 // }
-export async function getProjectInfo(project_id: number): Promise<responseSuccess> {
+export async function getProjectInfo(project_id: number): Promise<ApiSuccess> {
   return dooTaskAPI({
     url: `/api/project/one?project_id=${project_id}`,
     method: "GET",
   });
 }
 
-export async function updateProjectUser(project_id: number, user_ids: number[]): Promise<responseSuccess> {
+export async function updateProjectUser(project_id: number, user_ids: number[]): Promise<ApiSuccess> {
   // 将user_ids数组转换为URL查询参数格式
   const userIdParams = user_ids.map(id => `userid[]=${id}`).join('&');
   return dooTaskAPI({
@@ -338,7 +338,7 @@ export async function updateProjectUser(project_id: number, user_ids: number[]):
 }
 
 // 给项目更新权限，设置全部权限
-export async function updateProjectPermisson(project_id: number): Promise<responseSuccess> {
+export async function updateProjectPermisson(project_id: number): Promise<ApiSuccess> {
   return dooTaskAPI({
     url: `/api/project/permission/update`,
     method: "POST",
@@ -377,7 +377,7 @@ export async function updateProjectPermisson(project_id: number): Promise<respon
 //       }
 //   }
 // }
-export async function createProjectColumn(project_id: number, name: string): Promise<responseSuccess> {
+export async function createProjectColumn(project_id: number, name: string): Promise<ApiSuccess> {
   return dooTaskAPI({
     url: `/api/project/column/add?project_id=${project_id}&name=${name}`,
     method: "GET",

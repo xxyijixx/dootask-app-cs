@@ -84,7 +84,7 @@ export const useServiceConfig = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isSaving, setIsSaving] = useState<boolean>(false);
 
-  const [isRunInMicroApp, setIsRunInMicroApp] = useState<boolean>(isMicroApp());
+  const [isRunInMicroApp, setIsRunInMicroApp] = useState<boolean>(false);
   const [userBots, setUserBots] = useState<UserBot[]>([]);
   const [selectedUserBot, setSelectedUserBot] = useState<UserBot | null>(null);
   const [newSourceName, setNewSourceName] = useState<string>("");
@@ -99,82 +99,88 @@ export const useServiceConfig = () => {
     onConfirm: () => void;
   }>({ isOpen: false, title: '', message: '', onConfirm: () => {} });
 
-  // 初始化
+  // 初始化和加载配置
   useEffect(() => {
-    appReady().then(() => {
+    const initialize = async () => {
+      await appReady();
       console.log("微应用初始化完成");
-    });
 
-    if (isMicroApp()) {
-      console.log("当前是微应用");
-      setIsRunInMicroApp(true);
-      onGetUserBotList();
-    }
-
-    loadConfig();
-  }, []);
-
-  // 加载配置
-  const loadConfig = async () => {
-    try {
-      const configData = await getConfig("customer_service_system_config");
-      if (configData) {
-        setSystemConfig(configData);
-        if (configData.dootask_integration?.bot_id && isRunInMicroApp) {
-          getBotList()
-            .then((response) => {
-              const bots = response.data.list;
-              const selectedBot = bots.find(
-                (bot) => bot.id === configData.dootask_integration.bot_id
-              );
-              if (selectedBot) {
-                setSelectedUserBot(selectedBot);
-              }
-              setUserBots(bots);
-            })
-            .catch((error) => {
-              console.error("获取机器人列表失败:", error.message);
-            });
+      const microApp = await isMicroApp();
+      if (microApp) {
+        console.log("当前是微应用");
+        setIsRunInMicroApp(true);
+        // 获取机器人列表
+        try {
+          const response = await getBotList();
+          const bots = response.data.list;
+          console.log("客服机器人列表:", bots);
+          setUserBots(bots);
+        } catch (error) {
+          console.error("获取客服机器人列表失败:", error instanceof Error ? error.message : error);
         }
-      } else {
+      }
+
+      // 加载配置
+      try {
+        const configData = await getConfig("customer_service_system_config");
+        if (configData) {
+          setSystemConfig(configData);
+          if (configData.dootask_integration?.bot_id && microApp) {
+            getBotList()
+              .then((response) => {
+                const bots = response.data.list;
+                const selectedBot = bots.find(
+                  (bot) => bot.id === configData.dootask_integration.bot_id
+                );
+                if (selectedBot) {
+                  setSelectedUserBot(selectedBot);
+                }
+                setUserBots(bots);
+              })
+              .catch((error) => {
+                console.error("获取机器人列表失败:", error.message);
+              });
+          }
+        } else {
+          setSystemConfig(defaultSystemConfig);
+        }
+
+        if (microApp) {
+          await loadSources();
+        }
+
+        setIsLoading(false);
+      } catch (error) {
+        console.error("加载配置失败:", error);
         setSystemConfig(defaultSystemConfig);
+        setIsLoading(false);
       }
 
-      if (isRunInMicroApp) {
-        await loadSources();
-      }
-
-      setIsLoading(false);
-    } catch (error) {
-      console.error("加载配置失败:", error);
-      setSystemConfig(defaultSystemConfig);
-      setIsLoading(false);
-    }
-
-    try {
-      const dootaskConfigData = await getConfig("dootask_chat");
-      if (dootaskConfigData) {
-        setDootaskChatConfig(dootaskConfigData);
-      } else {
-        setDootaskChatConfig(defaultDooTaskChatConfig);
-      }
-    } catch (error) {
-      console.error("加载配置失败:", error);
-    }
-
-
-    try{
-      const serverConfigData = await getServerConfig();
-      if (serverConfigData) {
-        setServerConfig(serverConfigData)
-      } else {
-        setServerConfig(defaultServerConfig)
-      } 
-    } catch(error) {
+      try {
+        const dootaskConfigData = await getConfig("dootask_chat");
+        if (dootaskConfigData) {
+          setDootaskChatConfig(dootaskConfigData);
+        } else {
+          setDootaskChatConfig(defaultDooTaskChatConfig);
+        }
+      } catch (error) {
         console.error("加载配置失败:", error);
       }
-    
-  };
+
+      try{
+        const serverConfigData = await getServerConfig();
+        if (serverConfigData) {
+          setServerConfig(serverConfigData)
+        } else {
+          setServerConfig(defaultServerConfig)
+        }
+      } catch(error) {
+          console.error("加载配置失败:", error);
+        }
+    };
+
+    initialize();
+  }, []);
 
   // 加载来源列表
   const loadSources = async () => {
@@ -185,6 +191,7 @@ export const useServiceConfig = () => {
       console.error("加载来源列表失败:", error);
     }
   };
+
 
   // 获取机器人列表
   const onGetUserBotList = () => {

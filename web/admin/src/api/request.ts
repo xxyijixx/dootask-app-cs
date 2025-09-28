@@ -43,12 +43,12 @@ export async function apiRequest<T = any>(
 
     // 添加认证头
     headers.set('Authorization', 'Bearer 123456');
-    if (isMicroApp()) {
-      headers.set('Token', getUserToken());
+    if (await isMicroApp()) {
+      headers.set('Token', await getUserToken());
     }
 
     // 添加语言头
-    const language = getLanguageName();
+    const language = await getLanguageName();
     if (language) {
       headers.set('Accept-Language', language);
     }
