@@ -35,6 +35,7 @@ const App: React.FC = () => {
   // 添加状态来跟踪当前选中的会话
   const [currentConversationId, setCurrentConversationId] = useState<number>(0);
   const currentConversationIdRef = React.useRef<number>(0);
+  const [isRunInMicroApp, setIsRunInMicroApp] = useState(false);
   // 预留更新左侧会话列表最近聊天内容的方法
   const updateConversationLastMessage = (
     convUuid: string,
@@ -58,6 +59,7 @@ const App: React.FC = () => {
           webSocketService.getReadyState()
         );
         if (await isMicroApp()) {
+          setIsRunInMicroApp(true);
           console.log("当前是微应用");
         }
       };
@@ -198,6 +200,7 @@ const App: React.FC = () => {
             isAdmin={isAdmin}
             isAgent={isAgent}
             isLoading={isLoading}
+            isRunInMicroApp={isRunInMicroApp}
           />
         </ToastProvider>
       </LanguageProvider>
@@ -213,6 +216,7 @@ interface AppWithErrorHandlingProps {
   isAdmin: boolean;
   isAgent: boolean;
   isLoading: boolean;
+  isRunInMicroApp: boolean;
 }
 
 function AppWithErrorHandling({
@@ -222,11 +226,12 @@ function AppWithErrorHandling({
   isAdmin,
   isAgent,
   isLoading,
+  isRunInMicroApp,
 }: AppWithErrorHandlingProps) {
   const { t } = useTranslation();
   const toast = useToast();
   const [isDrawerMenuOpen, setIsDrawerMenuOpen] = useState(false);
-
+  
   // 配置全局错误处理
   useEffect(() => {
     setGlobalErrorConfig({
@@ -297,7 +302,7 @@ function AppWithErrorHandling({
               {/* 导航菜单按钮 */}
               <button
                 onClick={() => setIsDrawerMenuOpen(!isDrawerMenuOpen)}
-                className="inline-flex items-center justify-center p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                className={`inline-flex items-center justify-center p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${isRunInMicroApp ? 'mr-23' : ''}`}
               >
                 <span className="sr-only">{isDrawerMenuOpen ? '关闭菜单' : '打开菜单'}</span>
                 {isDrawerMenuOpen ? (
@@ -316,6 +321,7 @@ function AppWithErrorHandling({
           onClose={() => setIsDrawerMenuOpen(false)}
           isAdmin={isAdmin}
           isAgent={isAgent}
+          isRunInMicroApp={isRunInMicroApp}
         />
 
         {/* 主内容区 */}

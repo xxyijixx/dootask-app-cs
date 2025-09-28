@@ -10,6 +10,7 @@ interface DesktopDrawerMenuProps {
   onClose: () => void;
   isAdmin: boolean;
   isAgent: boolean;
+  isRunInMicroApp: boolean;
 }
 
 export const DesktopDrawerMenu: React.FC<DesktopDrawerMenuProps> = ({
@@ -17,6 +18,7 @@ export const DesktopDrawerMenu: React.FC<DesktopDrawerMenuProps> = ({
   onClose,
   isAdmin,
   isAgent,
+  isRunInMicroApp,
 }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -115,7 +117,7 @@ export const DesktopDrawerMenu: React.FC<DesktopDrawerMenuProps> = ({
             </h2>
             <button
               onClick={onClose}
-              className="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+              className={`p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 ${isRunInMicroApp ? 'mr-23' : ''}`}
             >
               <XMarkIcon className="h-6 w-6" />
             </button>
